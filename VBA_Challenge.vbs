@@ -40,13 +40,21 @@ For i = 2 To End_Row
 
     If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
     
-        start_value = ws.Cells(start_row, 3)
-        end_value = ws.Cells(i, 6)
+        start_value = ws.Cells(start_row, 3).Value
+        end_value = ws.Cells(i, 6).Value
         Total_Vol = Total_Vol + Cells(i, 7).Value
         Ticker_Name = ws.Cells(i, 1).Value
         Year_Change = end_value - start_value
+        
+        If start_value <> 0 Then
+        
         Percent_Change = Round((Year_Change / start_value) * 100, 2)
         
+        Else
+        
+        Percent_Change = 0
+        
+        End If
         
         
       ' Print values in the Summary Table
@@ -67,6 +75,7 @@ For i = 2 To End_Row
       Percent_Change = 0
       start_value = 0
       end_value = 0
+      start_row = i + 1
 
     ' If the cell immediately following a row is the same brand...
     Else 'Make sure you know the TYPE of variable you want to assign to inform the interface you want to
@@ -102,4 +111,5 @@ End If
 Next j
 
 End Sub
+
 
